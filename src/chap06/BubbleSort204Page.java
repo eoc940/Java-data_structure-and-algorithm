@@ -23,7 +23,7 @@ public class BubbleSort204Page {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("버블 정렬(버전1)");
+        System.out.println("버블 정렬(버전2)");
         System.out.print("요솟수 : ");
         int inputNum = scanner.nextInt();
         int[] numArr = new int[inputNum];
