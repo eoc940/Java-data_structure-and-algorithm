@@ -2,4 +2,15 @@
 
 - [복잡도와 빅오표기법](./texts/complexity.md)
 - [리스트](./texts/list.md)
-
+- [스택](./texts/stack.md)
+- [큐](./texts/queue.md)
+- [해시](./texts/hash.md)
+- [정렬](./texts/sort.md)
+- [트리](./texts/tree.md)
+- [힙](./texts/heap.md)
+- [그래프](./texts/graph.md)
+- [DFS](./texts/dfs.md)
+- [BFS](./texts/bfs.md)
+- [Greedy](./texts/greedy.md)
+- [Trie](./texts/trie.md)
+- [Dynamic Programming](./texts/dp.md)
