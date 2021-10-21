@@ -43,7 +43,7 @@
 
 
 ### O(logN)
-- 이진탐색(Binary search)
+- 이진탐색(Binary searchAndSort)
 
 ![image](https://user-images.githubusercontent.com/67304980/136236988-5abcf27c-8596-4887-9685-98c020480f75.png)
 ![image](https://user-images.githubusercontent.com/67304980/136237008-dbda56ab-9a24-4deb-abb3-415b0328f2a3.png)

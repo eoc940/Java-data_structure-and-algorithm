@@ -106,6 +106,7 @@ public class MyLinkedHashTable<K, V> implements IHashTable<K,V>{
             this.key = key;
             this.data = data;
         }
+
     }
 
 }
