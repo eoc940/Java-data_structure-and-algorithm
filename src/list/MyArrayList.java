@@ -101,4 +101,8 @@ public class MyArrayList<T> implements IList<T> {
     public int size() {
         return this.size;
     }
+
+    public String print() {
+        return Arrays.toString(this.elements);
+    }
 }
