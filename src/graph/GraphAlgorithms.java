@@ -1,6 +1,7 @@
 package graph;
 
-import org.w3c.dom.Node;
+import queue.IQueue;
+import queue.MyLinkedQueue;
 import stack.IStack;
 import stack.MyStack;
 
@@ -53,5 +54,76 @@ public class GraphAlgorithms {
             }
         }
         return result;
+    }
+
+    // 위상정렬 큐로 구현
+    // 1. 모든 vertex의 indegree 수를 센다
+    // 2. 큐에 indegree가 0인 vertex 삽입
+    // 3. 큐에서 vertex를 꺼내 연결된(나가는 방향) edge 제거
+    // 4. 3번으로 인해 indegree가 0이 된 vertex를 큐에 삽입
+    // 5. 큐가 빌 때까지 3-4번 반복
+    public static List<Integer> topologicalSortIndegree(IGraph graph) {
+        // <vertex, indegree 갯수>
+        Map<Integer, Integer> indegreeCounter = graph.getIndegrees();
+
+        List<Integer> result = new LinkedList<>();
+        IQueue<Integer> queue = new MyLinkedQueue<>();
+
+        for (int v : graph.getVertexes()) {
+            int count = indegreeCounter.getOrDefault(v, 0);
+            if (count == 0) {
+                queue.offer(v);
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            result.add(node);
+
+            for (int nn : graph.getNodes(node)) {
+                if (indegreeCounter.containsKey(nn)) {
+                    int count = indegreeCounter.get(nn);
+                    if (count - 1 == 0) {
+                        queue.offer(nn);
+                    }
+                    indegreeCounter.put(nn, count - 1);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // 위상정렬 스택으로 구현
+    public static List<Integer> topologicalSort(IGraph graph) {
+        List<Integer> result = new ArrayList<>();
+        IStack<Integer> stack = new MyStack<>();
+        Set<Integer> visited = new HashSet<>();
+
+        Set<Integer> vertexes = graph.getVertexes();
+        for (Integer vertex : vertexes) {
+            if (!visited.contains(vertex)) {
+                // dfs
+                topologicalSort(graph, vertex, visited, stack);
+
+            }
+        }
+        while (stack.size() > 0) {
+            result.add(stack.pop());
+        }
+        // result와 graph의 값이 다르다면 사이클이 존재하는 것이다다
+        return result;
+    }
+
+    private static void topologicalSort(IGraph graph, int vertex, Set<Integer> visited, IStack<Integer> stack) {
+        visited.add(vertex);
+        List<Integer> nodes = graph.getNodes(vertex);
+        for (Integer n : nodes) {
+            if (!visited.contains(n)) {
+                topologicalSort(graph, n, visited, stack);
+            }
+        }
+        // 역순으로 저장
+        stack.push(vertex);
     }
 }
