@@ -126,4 +126,56 @@ public class GraphAlgorithms {
         // 역순으로 저장
         stack.push(vertex);
     }
+
+    /**
+     * 다익스트라 최단거리 알고리즘
+     *
+     * @param graph
+     * @param src   출발 노드
+     * @param dst   도착 노드
+     * @return 출발 노드로부터 도착 노드까지의 최단 거리
+     */
+    public static int dijkstraShortestPath(IGraph graph, int src, int dst) {
+        int size = 0;
+        // distance 배열을 노드 크기만큼 생성하기 위해 그래프에서 가장 큰 노드의
+        // 번호를 얻는 반복문
+        for (int n : graph.getVertexes()) {
+            if (size < n) {
+                size = n + 1;
+            }
+        }
+        // distance 배열을 노드 크기만큼 초기화
+        int[] dist = new int[size];
+        for (int i = 0; i < dist.length; i++) {
+            dist[i] = Integer.MAX_VALUE; // distance 값을 INF 초기화
+        }
+        dist[src] = 0;
+        // 0번 인덱스는 노드번호, 1번 인덱스는 distance
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> {
+            return a[1] - b[1];
+            // 이렇게 하면 distance를 기준으로 minHeap이 동작하게 된다
+        });
+
+        pq.add(new int[]{src, 0});
+
+        while (!pq.isEmpty()) {
+            int[] top = pq.poll();
+            int vertex = top[0];
+            int distance = top[1];
+
+            if (dist[vertex] < distance) {
+                continue;
+            }
+
+            for (int node : graph.getNodes(vertex)) {
+                if (dist[node] > dist[vertex] + graph.getDistance(vertex, node)) {
+                    dist[node] = dist[vertex] + graph.getDistance(vertex, node);
+                    pq.add(new int[]{node, dist[node]});
+
+                }
+            }
+        }
+
+        return dist[dst];
+    }
 }
